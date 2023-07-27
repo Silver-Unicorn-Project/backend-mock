@@ -19,7 +19,7 @@ from django.urls import path
 from drinks import views
 
 from rest_framework.urlpatterns import format_suffix_patterns
-
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +27,10 @@ urlpatterns = [
     path('drinks/<int:id>', views.drink_detail),
     path('article/', views.article_detail),
     path('categories/', views.category_list),
-    path('categories/<int:category_id>/', views.articles_in_category, name='articles-in-category')
+    path('categories/<int:category_id>/', views.articles_in_category, name='articles-in-category'),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
